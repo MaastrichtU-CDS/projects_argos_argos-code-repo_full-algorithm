@@ -90,8 +90,11 @@ def master(client, data, org_ids, max_iteration):
                 time.sleep(5)
             node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
             aggregated_model_path= avg.fed_average(node_model_path,iteration=variables['iteration'])
-            db.insert_into_table_aggregate(conn,aggregated_model_path)
-            #aggregated_model_path = extract_from_table_aggregate(conn,variables['iteration'])
+            nodeType = "master"
+            iteration=variables['iteration']
+            value=(nodeType,iteration,aggregated_model_path)
+            db.insert_into_table_aggregate(conn,value)
+            aggregated_model_path = db.extract_from_table_aggregate(conn,variables['iteration'])
 
         if variables['iteration']>5:
            db.flush_model_folders(variables['iteration'])      

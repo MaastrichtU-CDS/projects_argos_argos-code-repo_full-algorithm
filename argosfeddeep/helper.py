@@ -57,7 +57,7 @@ def get_model_path(token,iteration):
     if not os.path.exists(os.getcwd(),'assets','averaged_model'):
         os.makedirs(os.path.join(os.getcwd(),'assets','averaged_model'))
     node_averaged_model_dir = os.path.join(os.getcwd(),'assets','averaged_model')
-    headers = {"Content-type": "application/json", "Accept": "text/plain", "Authorization": "Bearer " + token}
+    headers = {"enctype":"multipart/form-data","Authorization": "Bearer " + token}
     while True:
         response = requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) 
         #response.raise_for_status()
