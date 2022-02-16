@@ -65,7 +65,7 @@ def master(client, data, org_ids, max_iteration):
             "args": [],
             "kwargs": {
                 "token": token,
-                "iteration": 1
+                "iteration": variables['iteration']
             }
         }
 
