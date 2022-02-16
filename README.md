@@ -1,4 +1,4 @@
-# Full Algorithm
+# fed_gpu_test
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/a8555/full-algorithm.git
+git remote add origin https://gitlab.com/a8555/fed_gpu_test.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/a8555/full-algorithm/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/a8555/fed_gpu_test/-/settings/integrations)
 
 ## Collaborate with your team
 
