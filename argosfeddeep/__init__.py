@@ -88,7 +88,7 @@ def master(client, data, org_ids, max_iteration):
         if variables['iteration']!=0:
             while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
                 time.sleep(5)
-            node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],'iteration_'+str(variables['iteration']))
+            node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
             aggregated_model_path= avg.fed_average(node_model_path,iteration=variables['iteration'])
             db.insert_into_table_aggregate(conn,aggregated_model_path)
             #aggregated_model_path = extract_from_table_aggregate(conn,variables['iteration'])
