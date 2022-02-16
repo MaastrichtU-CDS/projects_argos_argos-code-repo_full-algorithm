@@ -10,6 +10,7 @@ import argosfeddeep.run_online as run
 import argosfeddeep.database as db
 import argosfeddeep.average as avg
 import argosfeddeep.app as ap
+import argosfeddeep.params as prm
 import requests
 import h5py
 import os
@@ -115,6 +116,8 @@ def RPC_deepnode(dataframe, token, iteration):
     client_node = do.temp_fix_client()
     org_id = do.find_my_organization_id(client_node)
     node_id = do.find_my_node_id(client_node)
+
+    prm.set_params()
 
     if iteration == 0:
         averaged_model_path = os.path.join(os.getcwd(),'initial_weights.h5')
