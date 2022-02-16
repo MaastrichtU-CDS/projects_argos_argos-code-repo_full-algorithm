@@ -547,8 +547,8 @@ def run_deep_algo(averaged_model_path,org_id,iteration):
     import shutil
 
     if not os.path.exists(os.path.join(os.getcwd(),'trained_model')):
-        os.mkdir(os.path.join(data_path,'trained_model'))
-    trained_model_directory = os.path.join(data_path,'trained_model')
+        os.mkdir(os.path.join(os.getcwd(),'trained_model'))
+    trained_model_directory = os.path.join(os.getcwd(),'trained_model')
 
     if tf.test.gpu_device_name():
         print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
