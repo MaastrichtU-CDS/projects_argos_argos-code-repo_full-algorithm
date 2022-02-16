@@ -120,7 +120,7 @@ def RPC_deepnode(dataframe, token, iteration):
     prm.set_params()
 
     if iteration == 0:
-        averaged_model_path = os.path.join(os.getcwd(),'initial_weights.h5')
+        averaged_model_path = os.path.join(os.getcwd(),'initial_weight.h5')
         trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
     else:
         averaged_model_path = dh.get_model_path(token, iteration)
