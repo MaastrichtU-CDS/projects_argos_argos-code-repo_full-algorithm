@@ -453,8 +453,8 @@ def main(averaged_model_path):
 
 
     # Load training and validation data
-    train_slices = utl.read_slices(os.path.join(data_path,'slices_training_800200.json'))
-    validation_slices = utl.read_slices(os.path.join(data_path,'slices_validation_800200.json'))
+    train_slices = utl.read_slices(os.path.join(data_path,'assets','slices_training_800200.json'))
+    validation_slices = utl.read_slices(os.path.join(data_path,'assets','slices_validation_800200.json'))
 
     iteration_number = list()
     train_loss_list = list()
