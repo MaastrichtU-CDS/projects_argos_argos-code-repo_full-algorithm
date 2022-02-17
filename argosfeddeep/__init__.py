@@ -83,19 +83,18 @@ def master(client, data, org_ids, max_iteration):
             info("Waiting for results")
             time.sleep(10)
 
-
         #check database if all nodes returned back their updated model
         # create database connection
         if variables['iteration']!=0:
             while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
                 time.sleep(5)
-            node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
-            aggregated_model_path= avg.fed_average(node_model_path,iteration=variables['iteration'])
-            nodeType = "master"
-            iteration=variables['iteration']
-            value=(nodeType,iteration,aggregated_model_path)
-            db.insert_into_table_aggregate(conn,value)
-            aggregated_model_path = db.extract_from_table_aggregate(conn,variables['iteration'])
+        node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
+        aggregated_model_path= avg.fed_average(node_model_path,iteration=variables['iteration'])
+        nodeType = "master"
+        iteration=variables['iteration']
+        value=(nodeType,iteration,aggregated_model_path)
+        db.insert_into_table_aggregate(conn,value)
+        #aggregated_model_path = db.extract_from_table_aggregate(conn,variables['iteration'])
 
         if variables['iteration']>5:
            db.flush_model_folders(variables['iteration'])      
@@ -111,7 +110,6 @@ def master(client, data, org_ids, max_iteration):
 
 def RPC_deepnode(dataframe, token, iteration):
 
-
     #get node id
     client_node = do.temp_fix_client()
     org_id = do.find_my_organization_id(client_node)
@@ -119,31 +117,36 @@ def RPC_deepnode(dataframe, token, iteration):
 
     prm.set_params()
 
-    if iteration == 0:
-        averaged_model_path = os.path.join(os.getcwd(),'initial_weight.h5')
-        trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
-    else:
-        averaged_model_path = dh.get_model_path(token, iteration)
-        trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
+    try:
+        if iteration == 0:
+            averaged_model_path = os.path.join(os.getcwd(),'initial_weight.h5')
+            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
+        else:
+            averaged_model_path = dh.get_model_path(token, iteration)
+            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
 
-    params = {'nodeType':'Node',
-    'iteration':iteration,
-    'org_id':org_id,
-    'training_loss':model_metrics['training_loss'],
-    'training_dice':model_metrics['training_dics'],
-    'validation_loss':model_metrics['validation_loss'],
-    'validation_dice':model_metrics['validation_dice']
+        params = {'nodeType':'Node',
+        'iteration':iteration,
+        'org_id':org_id,
+        'training_loss':model_metrics['training_loss'],
+        'training_dice':model_metrics['training_dics'],
+        'validation_loss':model_metrics['validation_loss'],
+        'validation_dice':model_metrics['validation_dice']
     }
 
-    #send averaged model to master
-    response = dh.post_model_to_master(params,trained_model_path,token)
-
-    if response==True:
+        #send averaged model to master
+        response = dh.post_model_to_master(params,trained_model_path,token)
+        if response==True:
             message_to_server = {'Org id':org_id,
                          'Iteration Completed':iteration}
-    else: 
+        else: 
+            message_to_server={'Org id':org_id,
+                            'Cannot Complete iteration':iteration}
+
+    except Exception as e: 
         message_to_server={'Org id':org_id,
-                            'Cannot Complete iteration':'Iteration'}
+                            'Cannot Complete iteration': iteration,
+                            "Exception":e}
 
     return message_to_server 
    
