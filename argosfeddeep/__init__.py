@@ -37,6 +37,8 @@ def master(client, data, org_ids, max_iteration):
     token = dh.get_token()
     info(f"API token '{token}'")
 
+    prm.set_params()
+
     #start api for model upload download in the background
     subprocess.Popen(['python','/app/argosfeddeep/master_api.py','&'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 
