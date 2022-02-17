@@ -1,5 +1,6 @@
 import os
 import time
+import json
 
 data_path = r'/mnt/data'
 
@@ -29,4 +30,6 @@ def set_params():
     param_dir = os.path.join(data_path,'assets')
     params_file ='params.json'
     param_path = os.path.join(param_dir,params_file)
+    with open(param_path,"w") as outfile:
+        json.dump(params,outfile)
     time.sleep(5)
