@@ -129,7 +129,7 @@ def RPC_deepnode(dataframe, token, iteration):
         'iteration':iteration,
         'org_id':org_id,
         'training_loss':model_metrics['training_loss'],
-        'training_dice':model_metrics['training_dics'],
+        'training_dice':model_metrics['training_dice'],
         'validation_loss':model_metrics['validation_loss'],
         'validation_dice':model_metrics['validation_dice']
     }
