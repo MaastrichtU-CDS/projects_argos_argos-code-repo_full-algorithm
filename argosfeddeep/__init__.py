@@ -91,7 +91,8 @@ def master(client, data, org_ids, max_iteration):
             while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
                 time.sleep(5)
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
-        aggregated_model_path= avg.fed_average(node_model_path,iteration=variables['iteration'])
+        aggregated_model_path, model_name = avg.fed_average(node_model_path,iteration=variables['iteration'])
+        aggregated_model_path_name = os.join(aggregated_model_path,model_name)
         nodeType = "master"
         iteration=variables['iteration']
         value=(nodeType,iteration,aggregated_model_path)
@@ -102,7 +103,7 @@ def master(client, data, org_ids, max_iteration):
            db.flush_model_folders(variables['iteration'])      
         
         variables['iteration'] += 1
-       
+        
         info("master algorithm complete")
         time.sleep(50)
 
@@ -122,10 +123,10 @@ def RPC_deepnode(dataframe, token, iteration):
     try:
         if iteration == 0:
             averaged_model_path = os.path.join('/app','initial_weight.h5')
-            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
+            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
         else:
             averaged_model_path = dh.get_model_path(token, iteration)
-            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,node_id)
+            trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
 
         params = {'nodeType':'Node',
         'iteration':iteration,

@@ -18,7 +18,8 @@ warn = lambda msg: sys.stdout.write("warn > " + msg + "\n")
 
 api_port="5050"
 #proxy = "http://52.28.49.157"
-proxy='https://aggregator-vm-argos.railway.medicaldataworks.nl'
+#proxy='https://aggregator-vm-argos.railway.medicaldataworks.nl'
+proxy='http://20.93.147.169:5050'
 url_download = proxy+ "/api/download"
 url_upload = proxy+ "/api/upload"
 
