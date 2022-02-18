@@ -59,16 +59,17 @@ def get_model_path(token,iteration):
         os.makedirs(os.path.join(os.getcwd(),'assets','averaged_model'))
     node_averaged_model_dir = os.path.join(os.getcwd(),'assets','averaged_model')
     headers = {"enctype":"multipart/form-data","Authorization": "Bearer " + token}
-    while True:
-        response = requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) 
+    while True: 
         #response.raise_for_status()
         averaged_model_name = os.path.join(node_averaged_model_dir, 'averaged_iteration_'+str(iteration)+'.h5')
         if not os.path.exists(averaged_model_name):
-            raw_content = response.content
-            hf=h5py.File(averaged_model_name,'w')
-            npdata=np.array(raw_content)
-            dset=hf.create_dataset(averaged_model_name,data=npdata)
-            break
+            response = requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600)
+            if response.status_code==200:
+                raw_content = response.content
+                hf=h5py.File(averaged_model_name,'w')
+                npdata=np.array(raw_content)
+                dset=hf.create_dataset(averaged_model_name,data=npdata)
+                break
         else:
             print("File Not Available... Waiting")
             time.sleep(30)

@@ -13,8 +13,8 @@ import sys
 
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'h5'])
-database = r"/mnt/data/argos.db"
-data_path=r"/mnt/data"
+database = '/mnt/data/argos.db'
+data_path='/mnt/data'
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
