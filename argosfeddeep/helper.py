@@ -44,8 +44,7 @@ def post_model_to_master(params,trained_model_path,token):
     try:
         with open (trained_model_path,'rb') as f:
                 response = requests.post(url = url_upload, files={'files':f}, params=params, headers= headers)
-                while response.status_code != 200:
-                    time.sleep(200)
+                time.sleep(10)
                 status_code = response.status_code
                 return status_code
     except:

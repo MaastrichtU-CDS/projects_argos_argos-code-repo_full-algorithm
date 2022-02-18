@@ -139,7 +139,7 @@ def RPC_deepnode(dataframe, token, iteration):
 
         #send averaged model to master
         response = dh.post_model_to_master(params,trained_model_path,token)
-        if response==True:
+        if response==200:
             message_to_server = {'Org id':org_id,
                          'Iteration Completed':iteration}
         else: 
