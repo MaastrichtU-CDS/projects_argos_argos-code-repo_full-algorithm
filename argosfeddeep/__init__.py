@@ -108,7 +108,7 @@ def master(client, data, org_ids, max_iteration):
         aggregated_model_path_name = os.join(aggregated_model_path,model_name)
         nodeType = "master"
         iteration=variables['iteration']
-        value=(nodeType,iteration,aggregated_model_path)
+        value=(nodeType,iteration,aggregated_model_path_name)
         db.insert_into_table_aggregate(conn,value)
         #aggregated_model_path = db.extract_from_table_aggregate(conn,variables['iteration'])
 
