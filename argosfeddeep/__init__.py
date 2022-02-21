@@ -120,9 +120,11 @@ def master(client, data, org_ids, max_iteration):
         variables['iteration'] += 1
         
         info("master algorithm complete")
+        if variables['iteration'] == variables['max_iteration']:
+            message_from_master = {"All iterations Completed":"Yes"}
+            
         time.sleep(50)
-
-    message_from_master = {"All iterations Completed":"Yes"}
+        
     return message_from_master
 
 
