@@ -74,6 +74,10 @@ def master(client, data, org_ids, max_iteration):
             }
         }
 
+        info("master algorithm complete")
+        if variables['iteration'] == variables['max_iteration']+1:
+            message_from_master = {"All iterations Completed":"Yes"}
+
         info("Creating node tasks")
         task = client.create_new_task(
             input_,
@@ -119,10 +123,6 @@ def master(client, data, org_ids, max_iteration):
            db.flush_model_folders(variables['iteration'])      
         
         variables['iteration'] += 1
-        
-        info("master algorithm complete")
-        if variables['iteration'] == variables['max_iteration']:
-            message_from_master = {"All iterations Completed":"Yes"}
             
         time.sleep(15)
 
