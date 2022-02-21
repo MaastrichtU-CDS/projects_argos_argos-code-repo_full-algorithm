@@ -74,10 +74,6 @@ def master(client, data, org_ids, max_iteration):
             }
         }
 
-        #info("master algorithm complete")
-        if variables['iteration'] == variables['max_iteration']+1:
-            message_from_master = {"All iterations Completed":"Yes"}
-            break
 
         info("Creating node tasks")
         task = client.create_new_task(
@@ -126,6 +122,8 @@ def master(client, data, org_ids, max_iteration):
         variables['iteration'] += 1
             
         time.sleep(15)
+    
+    message_from_master = {'All Iterations Succesfully Completed for':org_ids}
 
     return message_from_master
 
