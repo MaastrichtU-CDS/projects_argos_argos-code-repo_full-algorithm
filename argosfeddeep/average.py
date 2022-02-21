@@ -6,32 +6,6 @@ import argosfeddeep.app as ap
 import argosfeddeep.utils as utl
 import time
 
-params = {
-"image_shape": [512, 512, 1],
-"patch_shape": [512, 512, 3],
-"number_of_augmentations": 2,
-"min_bound": -300,
-"max_bound": 200,
-"num_classes": 2,
-"batch_size": 4,
-"num_steps": 10000,
-"train_eval_step": 100,
-"val_eval_step": 100,
-"save_model_step": 2500,
-"learning_rate": 0.0001,
-"decay_steps": 500000,
-"decay_rate": 0.1,
-"opt_momentum": 0.9,
-"dropout_rate": 0.0,
-"l2_loss": 0.0001
-}
-
-if not os.path.exists(os.path.join(os.getcwd(),'assets')):
-    os.mkdir(os.path.join(os.getcwd(),'assets'))
-param_dir = os.path.join(os.getcwd(),'assets')
-params_file ='params.json'
-param_path = os.path.join(param_dir,params_file)
-time.sleep(5)
 
 def dice_loss2(y_true, y_pred, ignore_background=True, square=False):
     if ignore_background:
@@ -56,6 +30,7 @@ def dice_bce(y_true, y_pred):
     return d_l + bce_l
 
 def construct_model():
+    param_path='/mnt/data/assets/params.json'
     params = utl.Params(param_path)
     
     # Define loss function
