@@ -108,7 +108,7 @@ def master(client, data, org_ids, max_iteration):
         info("Received all results")
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
         aggregated_model_path, model_name = avg.fed_average(node_model_path,iteration=variables['iteration'])
-        aggregated_model_path_name = os.join(aggregated_model_path,model_name)
+        aggregated_model_path_name = os.path.join(aggregated_model_path,model_name)
         nodeType = "master"
         iteration=variables['iteration']
         value=(nodeType,iteration,aggregated_model_path_name)
