@@ -67,8 +67,8 @@ def get_model_path(token,iteration):
                 r.raise_for_status()
                 hf=h5py.File(averaged_model_name,'w')
                 for chunk in r.iter_content(chunk_size=8192):
-                        npdata=np.array(chunk)
-                        dset=hf.create_dataset(averaged_model_name,data=npdata)
+                    npdata=np.array(chunk)
+                    dset=hf.create_dataset(averaged_model_name,data=npdata)
                 hf.close()
                 break
         else:
