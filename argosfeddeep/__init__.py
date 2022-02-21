@@ -83,14 +83,15 @@ def master(client, data, org_ids, max_iteration):
         task_id = task.get("id")
         task = client.get_task(task_id)
         while not task.get("complete"):
+            task = client.get_task(task_id)
             info("Waiting for results")
-            time.sleep(10)
+            time.sleep(3)
 
         results_master = client.get_results(task_id=task.get("id"))
         organization_ids = []
         for results in results_master:
             if results['flag']==0:
-                organization_ids.appen(results['Org id'])
+                organization_ids.append(results['Org id'])
 
 
         if not organization_ids:
