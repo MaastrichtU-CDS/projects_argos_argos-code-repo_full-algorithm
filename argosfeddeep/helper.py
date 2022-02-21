@@ -65,7 +65,7 @@ def get_model_path(token,iteration):
         averaged_model_name = os.path.join(node_averaged_model_dir, 'averaged_iteration_'+str(iteration)+'.h5')
         if not os.path.exists(averaged_model_name):
             with requests.Session() as session:
-                response = session.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) as r:
+                response = session.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600)
                 response.raise_for_status()
                 with open(averaged_model_name,'wb') as h5:
                     for chunk in response.iter_content(chunk_size=io.DEFAULT_BUFFER_SIZE):
