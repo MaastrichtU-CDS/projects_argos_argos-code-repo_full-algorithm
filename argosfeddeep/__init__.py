@@ -86,16 +86,16 @@ def master(client, data, org_ids, max_iteration):
             info("Waiting for results")
             time.sleep(10)
         
-        organization_ids = []
-        for results in task.get("results"):
-            id = results['id']
-            result_node = client.result.get(id)
-            if result_node['result']['flag']==0:
-                organization_ids.append(result_node['result']['Org id'])
+        #organization_ids = []
+        #for results in task.get("results"):
+         #   id = results['id']
+          #  result_node = client.result.get(id)
+           # if result_node['result']['flag']==0:
+            #    organization_ids.append(result_node['result']['Org id'])
 
-        if not organization_ids:
-            message_from_master={'Organization ids uncompleted task':organization_ids}
-            break
+        #if not organization_ids:
+         #   message_from_master={'Organization ids uncompleted task':organization_ids}
+          #  break
 
         #check database if all nodes returned back their updated model
         # create database connection
