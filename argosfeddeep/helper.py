@@ -64,6 +64,7 @@ def get_model_path(token,iteration):
         averaged_model_name = os.path.join(node_averaged_model_dir, 'averaged_iteration_'+str(iteration)+'.h5')
         if not os.path.exists(averaged_model_name):
             response = requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600)
+            time.sleep(60)
             if response.status_code==200:
                 raw_content = response.content
                 hf=h5py.File(averaged_model_name,'w')

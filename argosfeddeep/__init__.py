@@ -92,7 +92,7 @@ def master(client, data, org_ids, max_iteration):
         while not task.get("complete"):
             task = client.get_task(task_id)
             info("Waiting for results")
-            time.sleep(10)
+            time.sleep(15)
 
         results_master = client.get_results(task_id=task.get("id"))
         organization_ids = []
