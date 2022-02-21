@@ -8,8 +8,8 @@ import shutil
 
 #__all__ = ['create_connection','insert_into_table_model','insert_into_table_aggregate','extract_from_table_aggregate','check_database_entries']
 
-database = r"/mnt/data/argos.db"
-data_path = r'/mnt/data'
+#database = r"/mnt/data/argos.db"
+#data_path = r'/mnt/data'
 #data_path = os.getcwd()
 
 def create_connection(db_file):
@@ -61,6 +61,7 @@ def extract_from_table_aggregate(conn,iteration):
     :param conn: the Connection object
     :return:
     """
+    data_path = '/mnt/data'
     path = os.path.join(data_path,'download')
 
     cur = conn.cursor()
