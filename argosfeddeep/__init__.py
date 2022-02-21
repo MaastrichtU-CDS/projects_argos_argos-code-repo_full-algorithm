@@ -108,8 +108,8 @@ def master(client, data, org_ids, max_iteration):
         # create database connection
         
         while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
-            info("All database entries received")
             time.sleep(5)
+        info("All database entries received")
         info("Received all results")
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
         aggregated_model_path, model_name = avg.fed_average(node_model_path,iteration=variables['iteration'])

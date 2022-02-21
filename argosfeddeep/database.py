@@ -34,7 +34,7 @@ def insert_into_table_aggregate(conn,model):
     :return: project id
     """
 
-    sql = ''' INSERT INTO aggregate(nodeType,iteration,model_path)
+    sql = ''' INSERT OR IGNORE INTO aggregate(nodeType,iteration,model_path)
               VALUES(?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql,model)
@@ -48,7 +48,7 @@ def insert_into_table_nodeModel(conn,model):
     :param project:
     :return: project id
     """
-    sql = ''' INSERT INTO nodeModel(nodeType,iteration, org_id, training_loss, training_dice, validation_loss, validation_dice, train_model_path)
+    sql = ''' INSERT OR IGNORE INTO nodeModel(nodeType,iteration, org_id, training_loss, training_dice, validation_loss, validation_dice, train_model_path)
               VALUES(?,?,?,?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, model)

@@ -63,14 +63,13 @@ def get_model_path(token,iteration):
         #response.raise_for_status()
         averaged_model_name = os.path.join(node_averaged_model_dir, 'averaged_iteration_'+str(iteration)+'.h5')
         if not os.path.exists(averaged_model_name):
-            response = requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600)
-            time.sleep(100)
-            if response.status_code==200:
-                raw_content = response.content
+            with requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) as r:
+                r.raise_for_status()
                 hf=h5py.File(averaged_model_name,'w')
-                npdata=np.array(raw_content)
-                dset=hf.create_dataset(averaged_model_name,data=npdata)
-                time.sleep(100)
+                for chunk in r.iter_content(chunk_size=8192):
+                        npdata=np.array(chunk)
+                        dset=hf.create_dataset(averaged_model_name,data=npdata)
+                hf.close()
                 break
         else:
             print("File Not Available... Waiting")
