@@ -81,16 +81,28 @@ def master(client, data, org_ids, max_iteration):
 
         info("Waiting for results")
         task_id = task.get("id")
-        task = client.get_task(task_id)
+        task = client.task.get(task_id)
         while not task.get("complete"):
             info("Waiting for results")
             time.sleep(10)
+        
+        organization_ids = []
+        for results in task.get("results"):
+            id = results['id']
+            result_node = client.result.get(id)
+            if result_node['result']['flag']==0:
+                organization_ids.append(result_node['result']['Org id'])
+
+        if not organization_ids:
+            message_from_master={'Organization ids uncompleted task':organization_ids}
+            break
 
         #check database if all nodes returned back their updated model
         # create database connection
         if variables['iteration']!=0:
             while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
                 time.sleep(5)
+        info("Received all results")
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
         aggregated_model_path, model_name = avg.fed_average(node_model_path,iteration=variables['iteration'])
         aggregated_model_path_name = os.join(aggregated_model_path,model_name)
@@ -108,8 +120,8 @@ def master(client, data, org_ids, max_iteration):
         info("master algorithm complete")
         time.sleep(50)
 
-    results = {"All iteration Completed":"Yes"}
-    return results
+    message_from_master = {"All iteration Completed":"Yes"}
+    return message_from_master
 
 
 def RPC_deepnode(dataframe, token, iteration):
@@ -143,18 +155,22 @@ def RPC_deepnode(dataframe, token, iteration):
             response = dh.post_model_to_master(params,trained_model_path,token)
             if response==200:
                 message_to_server = {'Org id':org_id,
-                         'Iteration Completed':iteration}
+                         'Iteration Completed':iteration,
+                         'flag':1}
             else: 
                 message_to_server={'Org id':org_id,
-                            'Cannot Complete iteration':iteration}
+                            'Cannot Complete iteration':iteration,
+                            'flag':0}
         else:
             message_to_server={'Org id':org_id,
-                            'Cannot Complete iteration , no file found in path':iteration}
+                            'Cannot Complete iteration , no file found in path':iteration,
+                            'flag':0}
 
     except Exception as e: 
         message_to_server={'Org id':org_id,
                             'Cannot Complete iteration': iteration,
-                            "Exception":e}
+                            "Exception":e,
+                            'flag':0}
 
     return message_to_server 
    
