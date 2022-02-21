@@ -45,9 +45,11 @@ def upload_file():
         if not os.path.exists(os.path.join(data_path,'upload',str(iteration))):
             os.makedirs(os.path.join(data_path,'upload',str(iteration)))
         model_path =os.path.join(data_path,'upload',str(iteration))
+        filename = str(iteration)+"_"+str(org_id)+"_node.h5"
+        file.save(os.path.join(model_path,filename))
         model = (nodeType,iteration,org_id,training_loss,training_dice,validation_loss,validation_dice,model_path)
-        conn = db.create_connection(database)
-        db.insert_into_table_nodeModel(conn,model)
+        #conn = db.create_connection(database)
+        #db.insert_into_table_nodeModel(conn,model)
     return {"message:":"file inserted"}
  
 @app.route('/api/download', methods=['GET'])
