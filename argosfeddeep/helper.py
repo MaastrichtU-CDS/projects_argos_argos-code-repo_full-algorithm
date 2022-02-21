@@ -55,7 +55,7 @@ def post_model_to_master(params,trained_model_path,token):
 
 #Node Part of the algorithm
 def get_model_path(token,iteration):
-    if not os.path.exists(os.getcwd(),'assets','averaged_model'):
+    if not os.path.exists(os.path.join(os.getcwd(),'assets','averaged_model')):
         os.makedirs(os.path.join(os.getcwd(),'assets','averaged_model'))
     node_averaged_model_dir = os.path.join(os.getcwd(),'assets','averaged_model')
     headers = {"enctype":"multipart/form-data","Authorization": "Bearer " + token}
