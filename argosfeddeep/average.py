@@ -6,6 +6,7 @@ import argosfeddeep.app as ap
 import argosfeddeep.utils as utl
 import time
 
+data_path = '/mnt/data'
 
 def dice_loss2(y_true, y_pred, ignore_background=True, square=False):
     if ignore_background:
@@ -30,7 +31,7 @@ def dice_bce(y_true, y_pred):
     return d_l + bce_l
 
 def construct_model():
-    param_path='/mnt/data/assets/params.json'
+    param_path = os.path.join(data_path ,'assets','params.json')
     params = utl.Params(param_path)
     
     # Define loss function
