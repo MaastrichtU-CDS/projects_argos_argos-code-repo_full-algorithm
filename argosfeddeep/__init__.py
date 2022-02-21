@@ -59,7 +59,7 @@ def master(client, data, org_ids, max_iteration):
     '''
     Iterative process for sending and receiving tasks and computing results
     '''    
-    while variables['iteration']<variables['max_iteration']:
+    while variables['iteration']<=variables['max_iteration']:
 
         #check for iteration number , if iteration number more than 0, check for database entries, the initial model . if initial model is not set, 
 
@@ -74,7 +74,7 @@ def master(client, data, org_ids, max_iteration):
             }
         }
 
-        info("master algorithm complete")
+        #info("master algorithm complete")
         if variables['iteration'] == variables['max_iteration']+1:
             message_from_master = {"All iterations Completed":"Yes"}
             break
