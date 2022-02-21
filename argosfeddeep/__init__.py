@@ -39,6 +39,7 @@ def master(client, data, org_ids, max_iteration):
     info(f"API token '{token}'")
 
     prm.set_params()
+    info("params written to folder location")
 
     #start api for model upload download in the background
     subprocess.Popen(['python','/app/argosfeddeep/master_api.py','&'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -94,7 +95,6 @@ def master(client, data, org_ids, max_iteration):
             if results['flag']==0:
                 organization_ids.append(results['Org id'])
 
-
         if organization_ids:
             message_from_master={'Organization ids uncompleted task':organization_ids}
             break
@@ -103,6 +103,7 @@ def master(client, data, org_ids, max_iteration):
         # create database connection
         if variables['iteration']!=0:
             while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
+                info("All database entries received")
                 time.sleep(5)
         info("Received all results")
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
