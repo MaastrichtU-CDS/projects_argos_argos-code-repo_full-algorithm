@@ -24,7 +24,7 @@ import logging
 info = lambda msg: sys.stdout.write("info > " + msg + "\n")
 warn = lambda msg: sys.stdout.write("warn > " + msg + "\n")
 
-database = r"/mnt/data/argos.db"
+database_argos = r"/mnt/data/argos.db"
 
 def master(client, data, org_ids, max_iteration):
 
@@ -51,7 +51,7 @@ def master(client, data, org_ids, max_iteration):
     
     ids = org_ids
 
-    conn = db.create_connection(database)
+    conn = db.create_connection(database_argos)
     #flush_database(conn)
     #flush_all_folders()
 
