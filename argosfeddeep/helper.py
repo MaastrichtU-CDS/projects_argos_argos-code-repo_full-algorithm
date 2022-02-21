@@ -9,6 +9,7 @@ import numpy as np
 import h5py
 import argosfeddeep.app as ap
 import shutil
+import io
 
 #__all__ = ['get_token','post_model_to_master','flush_model_folders','get_model_path']
 
@@ -63,14 +64,13 @@ def get_model_path(token,iteration):
         #response.raise_for_status()
         averaged_model_name = os.path.join(node_averaged_model_dir, 'averaged_iteration_'+str(iteration)+'.h5')
         if not os.path.exists(averaged_model_name):
-            with requests.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) as r:
-                r.raise_for_status()
-                hf=h5py.File(averaged_model_name,'w')
-                for chunk in r.iter_content(chunk_size=8192):
-                    npdata=np.array(chunk)
-                    dset=hf.create_dataset(averaged_model_name,data=npdata)
-                hf.close()
-                break
+            with requests.Session() as session:
+                response = session.get(url_download, params = {"iteration":iteration},headers=headers, stream=True, timeout=3600) as r:
+                response.raise_for_status()
+                with open(averaged_model_name,'wb') as h5:
+                    for chunk in response.iter_content(chunk_size=io.DEFAULT_BUFFER_SIZE):
+                        h5.write(chunk)
+            break
         else:
             print("File Not Available... Waiting")
             time.sleep(30)
