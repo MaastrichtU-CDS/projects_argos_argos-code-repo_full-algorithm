@@ -95,7 +95,7 @@ def master(client, data, org_ids, max_iteration):
                 organization_ids.append(results['Org id'])
 
 
-        if not organization_ids:
+        if organization_ids:
             message_from_master={'Organization ids uncompleted task':organization_ids}
             break
 
@@ -122,7 +122,7 @@ def master(client, data, org_ids, max_iteration):
         info("master algorithm complete")
         time.sleep(50)
 
-    message_from_master = {"All iteration Completed":"Yes"}
+    message_from_master = {"All iterations Completed":"Yes"}
     return message_from_master
 
 
