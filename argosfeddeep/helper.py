@@ -70,6 +70,7 @@ def get_model_path(token,iteration):
                 hf=h5py.File(averaged_model_name,'w')
                 npdata=np.array(raw_content)
                 dset=hf.create_dataset(averaged_model_name,data=npdata)
+                time.sleep(100)
                 break
         else:
             print("File Not Available... Waiting")
