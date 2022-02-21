@@ -56,7 +56,8 @@ def upload_file():
 def api_get_model():
     iteration = request.args.get('iteration')
     conn = db.create_connection(database_argos)
-    value = db.extract_from_table_aggregate(conn,int(iteration))
+    full_filename = db.extract_from_table_aggregate(conn,int(iteration))
+    dir, value = os.path.split(full_filename)
     return redirect(url_for('download_file', filename=value))
 
 @app.route('/api/download/<filename>')
