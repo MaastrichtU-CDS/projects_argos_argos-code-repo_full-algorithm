@@ -46,8 +46,8 @@ def construct_model():
     # optimizer_function = tf.keras.optimizers.Adam(params['learning_rate'])
     
     # Define model
-    model = mod.mod_resnet(params,
-                        params['num_classes'],
+    model = mod.mod_resnet(params.dict,
+                        params.dict['num_classes'],
                         optimizer=optimizer_function,
                         loss=loss_function)
     return model
