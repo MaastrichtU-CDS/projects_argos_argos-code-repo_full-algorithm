@@ -1,3 +1,4 @@
+from selectors import EpollSelector
 import time
 import json
 import sys
@@ -137,14 +138,18 @@ def RPC_deepnode(dataframe, token, iteration):
         'validation_dice':model_metrics['validation_dice']
     }
 
-        #send averaged model to master
-        response = dh.post_model_to_master(params,trained_model_path,token)
-        if response==200:
-            message_to_server = {'Org id':org_id,
+        if os.path.isfile(trained_model_path):    
+            #send averaged model to master
+            response = dh.post_model_to_master(params,trained_model_path,token)
+            if response==200:
+                message_to_server = {'Org id':org_id,
                          'Iteration Completed':iteration}
-        else: 
-            message_to_server={'Org id':org_id,
+            else: 
+                message_to_server={'Org id':org_id,
                             'Cannot Complete iteration':iteration}
+        else:
+            message_to_server={'Org id':org_id,
+                            'Cannot Complete iteration , no file found in path':iteration}
 
     except Exception as e: 
         message_to_server={'Org id':org_id,
