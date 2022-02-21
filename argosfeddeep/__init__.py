@@ -106,10 +106,10 @@ def master(client, data, org_ids, max_iteration):
 
         #check database if all nodes returned back their updated model
         # create database connection
-        if variables['iteration']!=0:
-            while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
-                info("All database entries received")
-                time.sleep(5)
+        
+        while db.check_database_entries(conn,variables['iteration']) !=len(org_ids):
+            info("All database entries received")
+            time.sleep(5)
         info("Received all results")
         node_model_path = os.path.join(ap.app.config['UPLOAD_FOLDER'],str(variables['iteration']))
         aggregated_model_path, model_name = avg.fed_average(node_model_path,iteration=variables['iteration'])
@@ -144,7 +144,7 @@ def RPC_deepnode(dataframe, token, iteration):
             averaged_model_path = os.path.join('/app','initial_weight.h5')
             trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
         else:
-            averaged_model_path = dh.get_model_path(token, iteration)
+            averaged_model_path = dh.get_model_path(token, iteration-1)
             trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
 
         params = {'nodeType':'Node',
