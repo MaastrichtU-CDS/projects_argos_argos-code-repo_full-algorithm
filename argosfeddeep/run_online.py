@@ -512,6 +512,8 @@ def main(averaged_model_path):
                      'validation_loss':validation_loss_list,
                      'validation_dice':validation_dice_list}
 
+    print(model_metrics)
+
     return trained_model_path, model_metrics
 
 

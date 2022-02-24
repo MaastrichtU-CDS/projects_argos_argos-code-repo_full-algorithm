@@ -154,6 +154,8 @@ def RPC_deepnode(dataframe, token, iteration):
         'validation_dice':model_metrics['validation_dice']
     }
 
+    print(params)
+
         if os.path.isfile(trained_model_path):    
             #send averaged model to master
             response = dh.post_model_to_master(params,trained_model_path,token)
