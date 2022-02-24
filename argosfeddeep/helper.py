@@ -45,7 +45,7 @@ def post_model_to_master(params,trained_model_path,token):
     try:
         with open (trained_model_path,'rb') as f:
                 file_dict = {"file": f}
-                response = requests.post(url = url_upload, files=file_dict, params=params, headers= headers)
+                response = requests.post(url=url_upload, files=file_dict, params=params, headers=headers)
                 time.sleep(10)
                 status_code = response.status_code
                 return status_code

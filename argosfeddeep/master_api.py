@@ -37,13 +37,13 @@ def upload_file():
         iteration = int(request.args.get('iteration'))
         org_id = int(request.args.get('org_id'))
         nodeType = request.args.get('nodeType')
-        training_loss = float(request.args.get('training_loss'))
-        training_dice = float(request.args.get('training_dice'))
-        validation_loss = float(request.args.get('validation_loss'))
-        validation_dice = float(request.args.get('validation_dice'))
+        training_loss = request.args.get('training_loss')
+        training_dice = request.args.get('training_dice')
+        validation_loss = request.args.get('validation_loss')
+        validation_dice = request.args.get('validation_dice')
         file = request.files['file']
         if not os.path.exists(os.path.join(data_path,'upload',str(iteration))):
-            os.makedirs(os.path.join(data_path,'upload',str(iteration)))
+           os.makedirs(os.path.join(data_path,'upload',str(iteration)))
         model_path =os.path.join(data_path,'upload',str(iteration))
         filename = str(iteration)+"_"+str(org_id)+"_node.h5"
         file.save(os.path.join(model_path,filename))

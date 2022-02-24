@@ -146,15 +146,14 @@ def RPC_deepnode(dataframe, token, iteration):
             trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
 
         params = {'nodeType':'Node',
-        'iteration':iteration,
-        'org_id':org_id,
-        'training_loss':model_metrics['training_loss'],
-        'training_dice':model_metrics['training_dice'],
-        'validation_loss':model_metrics['validation_loss'],
-        'validation_dice':model_metrics['validation_dice']
+        'iteration':1,
+        'org_id':2,
+        'training_loss':'/'.join(map(str, model_metrics['training_loss'])),
+        'training_dice':'/'.join(map(str, model_metrics['training_dice'])),
+        'validation_loss':'/'.join(map(str,model_metrics['validation_loss'])),
+        'validation_dice':'/'.join(map(str, model_metrics['validation_dice']))
     }
 
-    print(params)
 
         if os.path.isfile(trained_model_path):    
             #send averaged model to master
