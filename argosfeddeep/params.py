@@ -25,6 +25,9 @@ def set_params():
     "l2_loss": 0.0001
     }
 
+    if os.path.exists(os.path.join(data_path,'assets','params.json')):
+        os.remove(os.path.join(data_path,'assets','params.json'))
+
     if not os.path.exists(os.path.join(data_path,'assets')):
         os.mkdir(os.path.join(data_path,'assets'))
     param_dir = os.path.join(data_path,'assets')
