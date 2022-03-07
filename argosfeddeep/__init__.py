@@ -146,8 +146,8 @@ def RPC_deepnode(dataframe, token, iteration):
             trained_model_path, model_metrics = run.run_deep_algo(averaged_model_path,org_id,iteration)
 
         params = {'nodeType':'Node',
-        'iteration':1,
-        'org_id':2,
+        'iteration':iteration,
+        'org_id':org_id,
         'training_loss':'/'.join(map(str, model_metrics['training_loss'])),
         'training_dice':'/'.join(map(str, model_metrics['training_dice'])),
         'validation_loss':'/'.join(map(str,model_metrics['validation_loss'])),
