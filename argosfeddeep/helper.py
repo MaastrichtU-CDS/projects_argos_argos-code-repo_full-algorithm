@@ -46,11 +46,11 @@ def post_model_to_master(params,trained_model_path,token):
         with open (trained_model_path,'rb') as f:
                 file_dict = {"file": f}
                 response = requests.post(url=url_upload, files=file_dict, params=params, headers=headers)
-                time.sleep(10)
+                time.sleep(30)
                 status_code = response.status_code
                 return status_code
-    except:
-        print("Cannot send file")
+    except Exception as e:
+        print("Cannot send file",e)
         status_code = 500
         return status_code 
 
