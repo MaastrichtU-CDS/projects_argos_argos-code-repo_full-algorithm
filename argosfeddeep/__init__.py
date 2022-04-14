@@ -26,7 +26,7 @@ warn = lambda msg: sys.stdout.write("warn > " + msg + "\n")
 
 database_argos = r"/mnt/data/argos.db"
 
-def master(client, data, org_ids, max_iteration):
+def master(client, data, org_ids, iteration_start, max_iteration):
 
     '''
     Retrieve token from master node . This token is essential for sending and receiving tasks from the data nodes
@@ -46,7 +46,7 @@ def master(client, data, org_ids, max_iteration):
 
     #Define variables
     variables = {"data_path" : "/mnt/data",
-                "iteration": 0,
+                "iteration": iteration_start,
                 "max_iteration" : max_iteration
                 }
     
