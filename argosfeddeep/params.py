@@ -13,7 +13,7 @@ def set_params():
     "max_bound": 200,
     "num_classes": 2,
     "batch_size": 4,
-    "num_steps": 10000,
+    "num_steps": 5000,
     "train_eval_step": 100,
     "val_eval_step": 100,
     "save_model_step": 5000,
