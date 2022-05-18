@@ -9,7 +9,7 @@ import shutil
 #__all__ = ['create_connection','insert_into_table_model','insert_into_table_aggregate','extract_from_table_aggregate','check_database_entries']
 
 #database = r"/mnt/data/argos.db"
-#data_path = r'/mnt/data'
+#data_path = '/mnt/data'
 #data_path = os.getcwd()
 
 def create_connection(db_file):
@@ -84,4 +84,6 @@ def flush_database(conn):
     cur = conn.cursor()
     cur.execute("DELETE from nodeModel;",)
     cur.execute("DELETE from aggregate;",)
+
+
 

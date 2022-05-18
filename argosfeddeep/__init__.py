@@ -56,6 +56,7 @@ def master(client, data, org_ids, iteration_start, max_iteration):
     #flush_database(conn)
     #flush_all_folders()
 
+
     '''
     Iterative process for sending and receiving tasks and computing results
     '''    
@@ -116,8 +117,8 @@ def master(client, data, org_ids, iteration_start, max_iteration):
         db.insert_into_table_aggregate(conn,value)
         #aggregated_model_path = db.extract_from_table_aggregate(conn,variables['iteration'])
 
-        if variables['iteration']>5:
-           db.flush_model_folders(variables['iteration'])      
+        #if variables['iteration']>5:
+         #  db.flush_model_folders(variables['iteration'])      
         
         variables['iteration'] += 1
             
